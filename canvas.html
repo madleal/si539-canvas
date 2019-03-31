@@ -11,7 +11,7 @@
 </style>
 </head>
 <body>
-	<canvas id="myCanvas" width="300" height="500">
+	<canvas id="myCanvas">
 	</canvas>
 	<br> 
 	<h3>Color Picker </h3>
@@ -20,8 +20,6 @@
 	<script>
 		var c = document.getElementById("myCanvas");
 		var ctx = c.getContext("2d");
-		// c.width = window.innerWidth * 0.8;
-		// c.height = window.innerHeight * 0.8;
 		var isMouseDown = false;
 		var arcSize = 5;
 		var x = 100
@@ -68,16 +66,6 @@
 			ctx.fill();
 		}	
 
-	// function clearCanvas(){
-	// 	windowWidth = window.outerWidth;
-	// 	windowHeight = window.outerHeight;
-	// 	//console.log(windowWidth);
-	// 	//console.log(windowHeight);
-	// 	c.width = 0.8 * windowWidth;
-	// 	c.height = 0.8 * windowHeight;
-	// 	//console.log(c.width);
-	// 	//console.log(c.height);
-	// }
 
 		function mouseDown(e){
 			isMouseDown = true;
@@ -97,37 +85,38 @@
 			draw(e.clientX - rect.left, e.clientY - rect.top, arcSize, color);	
 		}
 
-	function touchMove(e){
+		function touchMove(e){
 			if (!isMouseDown){
 				return;
 		}
 		var rect = c.getBoundingClientRect();
 			draw(e.touches[0].clientX - rect.left, e.touches[0].clientY - rect.top, arcSize, color); 
 		e.preventDefault();
-	}	
-
+		}	
+		//looked at https://www.w3schools.com/graphics/game_controllers.asp to look at code
 	
-	function selectColor(){
-		color = document.getElementById("colorPicker").value
-	}
+		function selectColor(){
+			color= document.getElementById("colorPicker").value
+		}
 
-	c.addEventListener("mousedown", mouseDown);
-	c.addEventListener("touchstart", mouseDown);
-	c.addEventListener("mouseup", mouseUp);
-	c.addEventListener("touchend", mouseUp);
-	c.addEventListener("mousemove", mouseMove);
-	c.addEventListener("touchmove", touchMove);
+		c.addEventListener("mousedown", mouseDown);
+		c.addEventListener("touchstart", mouseDown);
+		c.addEventListener("mouseup", mouseUp);
+		c.addEventListener("touchend", mouseUp);
+		c.addEventListener("mousemove", mouseMove);
+		c.addEventListener("touchmove", touchMove);
 
-	window.addEventListener("resize",function(e){
-  	ctx.clearRect(0,0,c.width,c.height)
-	})
+		window.addEventListener("resize",function(e){
+  			ctx.clearRect(0,0,c.width,c.height)
+		})
 
-	window.addEventListener("orientationchange", function(e){
-		 windowWidth = window.outerWidth;
-         windowHeight = window.outerHeight;
-         c.width = 0.8 * windowWidth;
-         c.height = 0.8 * windowHeight;
-	})
+		//to clear on orientation change on mobile device
+		window.addEventListener("orientationchange", function(e){
+		 	windowWidth = window.outerWidth;
+         	windowHeight = window.outerHeight;
+         	c.width = 0.8 * windowWidth;
+         	c.height = 0.8 * windowHeight;
+		})
 
 	</script>
 
