@@ -11,7 +11,7 @@
 </style>
 </head>
 <body>
-	<canvas id="myCanvas">
+	<canvas id="myCanvas" width = "300" height = "300">
 	</canvas>
 	<br> 
 	<h3>Color Picker </h3>
@@ -84,6 +84,7 @@
 		var rect = c.getBoundingClientRect();
 			draw(e.clientX - rect.left, e.clientY - rect.top, arcSize, color);	
 		}
+		// https://www.w3schools.com/jsref/met_element_getboundingclientrect.asp
 
 		function touchMove(e){
 			if (!isMouseDown){
