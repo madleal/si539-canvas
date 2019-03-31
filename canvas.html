@@ -111,15 +111,22 @@
 		color = document.getElementById("colorPicker").value
 	}
 
-	window.addEventListener("mousedown", mouseDown);
-	window.addEventListener("touchstart", mouseDown);
-	window.addEventListener("mouseup", mouseUp);
-	window.addEventListener("touchend", mouseUp);
-	window.addEventListener("mousemove", mouseMove);
-	window.addEventListener("touchmove", touchMove);
+	c.addEventListener("mousedown", mouseDown);
+	c.addEventListener("touchstart", mouseDown);
+	c.addEventListener("mouseup", mouseUp);
+	c.addEventListener("touchend", mouseUp);
+	c.addEventListener("mousemove", mouseMove);
+	c.addEventListener("touchmove", touchMove);
 
 	window.addEventListener("resize",function(e){
   	ctx.clearRect(0,0,c.width,c.height)
+	})
+
+	window.addEventListener("orientationchange", function(e){
+		 windowWidth = window.outerWidth;
+         windowHeight = window.outerHeight;
+         c.width = 0.8 * windowWidth;
+         c.height = 0.8 * windowHeight;
 	})
 
 	</script>
