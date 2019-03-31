@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Canvas Example</title>
+<style type="text/css">
+	canvas{
+		border: 1px solid black;
+
+	}
+</style>
+</head>
+<body>
+	<canvas id="myCanvas" width="300" height="500">
+	</canvas>
+	<br> 
+	<h3>Color Picker </h3>
+	<input type="color" id="colorPicker" onchange="selectColor()" value = "#ff0000">	
+
+	<script>
+		var c = document.getElementById("myCanvas");
+		var ctx = c.getContext("2d");
+		var isMouseDown = false;
+		var userRadius = 5;
+		var x = 100
+		var y = 75
+		var r = 10
+		var color = "red";
+		// var heightRatio = 1;
+		var windowWidth = window.innerWidth;
+		var windowHeight = window.innerHeight;
+
+		c.width = 0.8 * windowWidth;
+		c.height = 0.8 * windowHeight;
+		// var w = window.width
+		// var h = window.height 
+		// c.height = c.width * heightRatio;
+		// draw();
+
+		window.addEventListener('keydown', function (e) {
+			console.log(e.keyCode);
+			if (e.keyCode === 66){
+			color = "blue";}
+			if (e.keyCode === 71){
+			color = "green";}
+			if (e.keyCode === 82){
+			color = "red";}
+			if (e.keyCode === 89){
+			color = "yellow";}	
+			if (e.keyCode === 32){
+			clearCanvas();}	
+			if (e.keyCode === 38){
+			userRadius += 1;}
+			if (e.keyCode == 40 && userRadius > 1){
+			userRadius -= 1;
+			}	
+			e.preventDefault();
+			// console.log(userRadius);			
+
+		})
+
+
+	function draw(x, y, r, color){
+		ctx.beginPath();
+		ctx.arc(x, y, r, 0, 2 * Math.PI);
+		ctx.fillStyle = color;
+		ctx.fill();
+	}	
+
+	function clearCanvas(){
+		windowWidth = window.outerWidth;
+		windowHeight = window.outerHeight;
+		//console.log(windowWidth);
+		//console.log(windowHeight);
+		c.width = 0.8 * windowWidth;
+		c.height = 0.8 * windowHeight;
+		//console.log(canvas.width);
+		//console.log(canvas.height);
+	}
+
+	function mouseDown(e){
+		isMouseDown = true;
+		e.preventDefault();
+	}
+
+	function mouseUp(e){
+		isMouseDown = false;
+		e.preventDefault();
+	}
+
+	function mouseMove(e){
+		if (!isMouseDown){
+			return;
+		}
+		var rect = c.getBoundingClientRect();
+		draw(e.clientX - rect.left, e.clientY - rect.top, userRadius, color);	
+		}
+
+	function touchMove(e){
+		if (!isMouseDown){
+			return;
+		}
+		var rect = c.getBoundingClientRect();
+		draw(e.touches[0].clientX - rect.left, e.touches[0].clientY - rect.top, userRadius, color); 
+		e.preventDefault();
+	}	
+
+	// window.addEventListener('mousemove', function (e) {
+	// 	// console.log(e.pageX);
+	// 	// console.log(e.pageY);
+	// 	x = e.pageX;
+	// 	y = e.pageY;
+	// 	draw();
+	// })
+
+	
+	function selectColor(){
+		color = document.getElementById("colorPicker").value
+	}
+
+	c.addEventListener("mousedown", mouseDown);
+	c.addEventListener("touchstart", mouseDown);
+	c.addEventListener("mouseup", mouseUp);
+	c.addEventListener("touchend", mouseUp);
+	c.addEventListener("mousemove", mouseMove);
+	c.addEventListener("touchmove", touchMove);
+
+	window.addEventListener("orientationchange", clearCanvas);	
+
+	</script>
+
+</body>
+</html>
+	
