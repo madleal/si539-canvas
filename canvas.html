@@ -50,9 +50,9 @@
 			color = "yellow";}	
 			if (e.keyCode === 32){
 			ctx.clearRect(0,0,c.width,c.height);}	
-			if (e.keyCode === "arrowUp"){
+			if (e.keyCode === 38){
 			arcSize += 1;}
-			if (e.keyCode == "arrowDown" && arcSize > 1){
+			if (e.keyCode == 40 && arcSize > 1){
 			arcSize -= 1;
 			}	
 			e.preventDefault();
@@ -61,12 +61,12 @@
 		})
 
 
-	function draw(x, y, r, color){
-		ctx.beginPath();
-		ctx.arc(x, y, r, 0, 2 * Math.PI);
-		ctx.fillStyle = color;
-		ctx.fill();
-	}	
+		function draw(x, y, r, color){
+			ctx.beginPath();
+			ctx.arc(x, y, r, 0, 2 * Math.PI);
+			ctx.fillStyle = color;
+			ctx.fill();
+		}	
 
 	// function clearCanvas(){
 	// 	windowWidth = window.outerWidth;
@@ -79,55 +79,47 @@
 	// 	//console.log(c.height);
 	// }
 
-	function mouseDown(e){
-		isMouseDown = true;
-		e.preventDefault();
-	}
+		function mouseDown(e){
+			isMouseDown = true;
+			e.preventDefault();
+		}
 
-	function mouseUp(e){
-		isMouseDown = false;
-		e.preventDefault();
-	}
+		function mouseUp(e){
+			isMouseDown = false;
+			e.preventDefault();
+		}
 
-	function mouseMove(e){
-		if (!isMouseDown){
-			return;
+		function mouseMove(e){
+			if (!isMouseDown){
+				return;
 		}
 		var rect = c.getBoundingClientRect();
-		draw(e.clientX - rect.left, e.clientY - rect.top, arcSize, color);	
+			draw(e.clientX - rect.left, e.clientY - rect.top, arcSize, color);	
 		}
 
 	function touchMove(e){
-		if (!isMouseDown){
-			return;
+			if (!isMouseDown){
+				return;
 		}
 		var rect = c.getBoundingClientRect();
-		draw(e.touches[0].clientX - rect.left, e.touches[0].clientY - rect.top, arcSize, color); 
+			draw(e.touches[0].clientX - rect.left, e.touches[0].clientY - rect.top, arcSize, color); 
 		e.preventDefault();
 	}	
-
-	// window.addEventListener('mousemove', function (e) {
-	// 	// console.log(e.pageX);
-	// 	// console.log(e.pageY);
-	// 	x = e.pageX;
-	// 	y = e.pageY;
-	// 	draw();
-	// })
 
 	
 	function selectColor(){
 		color = document.getElementById("colorPicker").value
 	}
 
-	c.addEventListener("mousedown", mouseDown);
-	c.addEventListener("touchstart", mouseDown);
-	c.addEventListener("mouseup", mouseUp);
-	c.addEventListener("touchend", mouseUp);
-	c.addEventListener("mousemove", mouseMove);
-	c.addEventListener("touchmove", touchMove);
+	window.addEventListener("mousedown", mouseDown);
+	window.addEventListener("touchstart", mouseDown);
+	window.addEventListener("mouseup", mouseUp);
+	window.addEventListener("touchend", mouseUp);
+	window.addEventListener("mousemove", mouseMove);
+	window.addEventListener("touchmove", touchMove);
 
-	window.addEventListener("changeorientation",function(e){
-    ctx.clearRect(0,0,c.width,c.height)
+	window.addEventListener("resize",function(e){
+  	ctx.clearRect(0,0,c.width,c.height)
 	})
 
 	</script>
