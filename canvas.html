@@ -20,15 +20,16 @@
 	<script>
 		var c = document.getElementById("myCanvas");
 		var ctx = c.getContext("2d");
+		// c.width = window.innerWidth * 0.8;
+		// c.height = window.innerHeight * 0.8;
 		var isMouseDown = false;
-		var userRadius = 5;
+		var arcSize = 5;
 		var x = 100
 		var y = 75
 		var r = 10
 		var color = "red";
-		// var heightRatio = 1;
-		var windowWidth = window.innerWidth;
-		var windowHeight = window.innerHeight;
+		var windowWidth = window.innerWidth * 0.8;
+		var windowHeight = window.innerHeight * 0.8;
 
 		c.width = 0.8 * windowWidth;
 		c.height = 0.8 * windowHeight;
@@ -48,14 +49,14 @@
 			if (e.keyCode === 89){
 			color = "yellow";}	
 			if (e.keyCode === 32){
-			clearCanvas();}	
-			if (e.keyCode === 38){
-			userRadius += 1;}
-			if (e.keyCode == 40 && userRadius > 1){
-			userRadius -= 1;
+			ctx.clearRect(0,0,c.width,c.height);}	
+			if (e.keyCode === "arrowUp"){
+			arcSize += 1;}
+			if (e.keyCode == "arrowDown" && arcSize > 1){
+			arcSize -= 1;
 			}	
 			e.preventDefault();
-			// console.log(userRadius);			
+			// console.log(arcSize);			
 
 		})
 
@@ -67,16 +68,16 @@
 		ctx.fill();
 	}	
 
-	function clearCanvas(){
-		windowWidth = window.outerWidth;
-		windowHeight = window.outerHeight;
-		//console.log(windowWidth);
-		//console.log(windowHeight);
-		c.width = 0.8 * windowWidth;
-		c.height = 0.8 * windowHeight;
-		//console.log(canvas.width);
-		//console.log(canvas.height);
-	}
+	// function clearCanvas(){
+	// 	windowWidth = window.outerWidth;
+	// 	windowHeight = window.outerHeight;
+	// 	//console.log(windowWidth);
+	// 	//console.log(windowHeight);
+	// 	c.width = 0.8 * windowWidth;
+	// 	c.height = 0.8 * windowHeight;
+	// 	//console.log(c.width);
+	// 	//console.log(c.height);
+	// }
 
 	function mouseDown(e){
 		isMouseDown = true;
@@ -93,7 +94,7 @@
 			return;
 		}
 		var rect = c.getBoundingClientRect();
-		draw(e.clientX - rect.left, e.clientY - rect.top, userRadius, color);	
+		draw(e.clientX - rect.left, e.clientY - rect.top, arcSize, color);	
 		}
 
 	function touchMove(e){
@@ -101,7 +102,7 @@
 			return;
 		}
 		var rect = c.getBoundingClientRect();
-		draw(e.touches[0].clientX - rect.left, e.touches[0].clientY - rect.top, userRadius, color); 
+		draw(e.touches[0].clientX - rect.left, e.touches[0].clientY - rect.top, arcSize, color); 
 		e.preventDefault();
 	}	
 
@@ -125,7 +126,9 @@
 	c.addEventListener("mousemove", mouseMove);
 	c.addEventListener("touchmove", touchMove);
 
-	window.addEventListener("orientationchange", clearCanvas);	
+	window.addEventListener("changeorientation",function(e){
+    ctx.clearRect(0,0,c.width,c.height)
+	})
 
 	</script>
 
