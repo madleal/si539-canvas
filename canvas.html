@@ -29,12 +29,9 @@
 		var windowWidth = window.innerWidth * 0.8;
 		var windowHeight = window.innerHeight * 0.8;
 
-		c.width = 0.8 * windowWidth;
-		c.height = 0.8 * windowHeight;
-		// var w = window.width
-		// var h = window.height 
-		// c.height = c.width * heightRatio;
-		// draw();
+		c.width = windowWidth;
+		c.height = windowHeight;
+	
 
 		window.addEventListener('keydown', function (e) {
 			console.log(e.keyCode);
@@ -92,14 +89,16 @@
 		}
 		var rect = c.getBoundingClientRect();
 			draw(e.touches[0].clientX - rect.left, e.touches[0].clientY - rect.top, arcSize, color); 
-		e.preventDefault();
+			e.preventDefault();
 		}	
 		//looked at https://www.w3schools.com/graphics/game_controllers.asp to look at code
 	
 		function selectColor(){
-			color= document.getElementById("colorPicker").value
+			color = document.getElementById("colorPicker").value
+			
 		}
 
+		c.addEventListener("selectColor", click);
 		c.addEventListener("mousedown", mouseDown);
 		c.addEventListener("touchstart", mouseDown);
 		c.addEventListener("mouseup", mouseUp);
@@ -113,10 +112,11 @@
 
 		//to clear on orientation change on mobile device
 		window.addEventListener("orientationchange", function(e){
-		 	windowWidth = window.outerWidth;
-         	windowHeight = window.outerHeight;
-         	c.width = 0.8 * windowWidth;
-         	c.height = 0.8 * windowHeight;
+		 	var windowWidth = window.innerWidth * 0.8;
+			var windowHeight = window.innerHeight * 0.8;
+			c.width = windowWidth;
+			c.height = windowHeight;
+			ctx.clearRect(0,0,c.width,c.height);
 		})
 
 	</script>
