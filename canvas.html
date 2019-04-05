@@ -15,7 +15,7 @@
 	</canvas>
 	<br> 
 	<h3>Color Picker </h3>
-	<input type="color" id="colorPicker" onchange="selectColor()" value = "#ff0000">	
+	<input type="color" id="colorPicker" value = "#ff0000">	
 
 	<script>
 		var c = document.getElementById("myCanvas");
@@ -93,12 +93,18 @@
 		}	
 		//looked at https://www.w3schools.com/graphics/game_controllers.asp to look at code
 	
-		function selectColor(){
-			color = document.getElementById("colorPicker").value
+		// function selectColor(){
+		// 	color = document.getElementById("colorPicker").value
 			
-		}
+		// }
 
-		c.addEventListener("selectColor", click);
+		document.getElementById("colorPicker").addEventListener("input", function(e){
+			console.log(this);
+			console.log(this.value);
+			color = this.value
+		})
+
+
 		c.addEventListener("mousedown", mouseDown);
 		c.addEventListener("touchstart", mouseDown);
 		c.addEventListener("mouseup", mouseUp);
@@ -112,12 +118,14 @@
 
 		//to clear on orientation change on mobile device
 		window.addEventListener("orientationchange", function(e){
-		 	var windowWidth = window.innerWidth * 0.8;
-			var windowHeight = window.innerHeight * 0.8;
-			c.width = windowWidth;
-			c.height = windowHeight;
-			ctx.clearRect(0,0,c.width,c.height);
-		})
+			location.reload()
+		})	
+		 // 	var windowWidth = window.innerWidth * 0.8;
+			// var windowHeight = window.innerHeight * 0.8;
+			// c.width = windowWidth;
+			// c.height = windowHeight;
+			// ctx.clearRect(0,0,c.width,c.height);
+	
 
 	</script>
 
